@@ -52,18 +52,14 @@ class ControllerListarTarefas:
 
     def exibirTarefas(self):
         if self.lista:
-            print("STATUS     | TAREFA")
-            print("---------------------")
-            for tarefa in self.lista:
+            for i, tarefa in enumerate(self.lista, start=1):
                 tarefa_parts = tarefa.split(" - ", 2)  # Dividir em 3 partes
 
                 if len(tarefa_parts) == 3:
                     _, status, texto_tarefa = tarefa_parts
-                    print(f"{status:<10} | {texto_tarefa}")
+                    print(f"[{i}] - Status: {status}, Tarefa: {texto_tarefa}")
                 else:
-                    print("Tarefa não encontrada.")
-        else:
-            print("Não há tarefas para exibir.")
+                    print(f"[{i}] - Tarefa não encontrada.")
 
 class ControllerConcluirTarefa:
     def __init__(self, concluir):
