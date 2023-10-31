@@ -2,22 +2,24 @@ from Model import *  # Importa todas as classes do módulo Model
 from Dao import *  # Importa todas as classes do módulo Dao
 import random  # Importa o módulo random para gerar números aleatórios
 
-class ControllerAdicionarTarefa():  # Define a classe ControllerAdicionarTarefa
-    def __init__(self, tarefa):  # Método construtor que recebe a tarefa como parâmetro
-        id = random.randint(1000, 9999)  # Gera um número aleatório entre 1000 e 9999 para o ID da tarefa
-        self.id = int(id)  # Converte o ID para inteiro
-        self.status = "A fazer"  # Define o status da tarefa como "A fazer"
-        self.tarefa = tarefa  # Atribui a tarefa passada como parâmetro para a instância atual
-        self.tarefa = f"{self.id} - {self.status} - {self.tarefa} \n"  # Concatena o ID, o status e a tarefa em uma única string
+class ControllerAdicionarTarefa:
+    def __init__(self, tarefa):
+        if not tarefa.strip():  # Verifica se a tarefa é vazia ou apenas espaços em branco
+            print("Tarefa vazia. Não foi possível adicionar.")
+        else:
+            id = random.randint(1000, 9999)
+            self.id = int(id)
+            self.status = "A fazer"
+            self.tarefa = tarefa
+            self.tarefa = f"{self.id} - {self.status} - {self.tarefa}\n"
 
-        self.adicionar_tarefa()  # Chama o método adicionar_tarefa
+            self.adicionar_tarefa()
 
-    def adicionar_tarefa(self):  # Define o método adicionar_tarefa
-        if DAO.AdicionarTarefa(self.tarefa):  # Correção: Chamada correta para DAO.AdicionarTarefa
-            print("Tarefa Adicionada")  # Imprime uma mensagem de sucesso
+    def adicionar_tarefa(self):
+        if DAO.AdicionarTarefa(self.tarefa):
+            print("Tarefa Adicionada")
         else:
             print("Não foi possível adicionar a tarefa.")
- 
 
 
 class ControllerExcluirTarefa:
@@ -45,6 +47,7 @@ class ControllerExcluirTarefa:
         else:
             print("Índice inválido.")
 
+
 class ControllerListarTarefas:
     #listar somente as tarefas que não foram concluidas
     def __init__(self):
@@ -61,6 +64,7 @@ class ControllerListarTarefas:
                         print(f"[{i}] - Status: {status}, Tarefa: {texto_tarefa}")
                 else:
                     print(f"[{i}] - Tarefa não encontrada.")
+
 
 class ControllerConcluirTarefa:
     def __init__(self, indice, novo_status):
@@ -82,6 +86,7 @@ class ControllerConcluirTarefa:
         else:
             print("Operação cancelada.")
 
+
 class ControllerListarTarefasConcluidas:
     #Lista somente as tarefas concluidas    
     def __init__(self):
@@ -100,13 +105,14 @@ class ControllerListarTarefasConcluidas:
                     print(f"[{i}] - Tarefa não encontrada.")
 
 
-
-
 class ControllerAlterarTarefa:
     def __init__(self, indice, nova_descricao):
-        self.indice = int(indice)
-        self.nova_descricao = nova_descricao
-        self.alterar_tarefa()
+        if not nova_descricao.strip():  # Verifica se a tarefa é vazia ou apenas espaços em branco
+            print("Tarefa vazia. Não foi possível adicionar.")
+        else:
+            self.indice = int(indice)
+            self.nova_descricao = nova_descricao
+            self.alterar_tarefa()
 
     def alterar_tarefa(self):
         if self.indice > 0:

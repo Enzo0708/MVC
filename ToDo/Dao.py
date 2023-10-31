@@ -21,6 +21,7 @@ class Dao:  # Define a classe Dao
         try:  # Tenta executar o bloco de código dentro do try
             with open(self.arquivo, "r") as arquivo:  # Abre o arquivo em modo de leitura ("r")
                 return arquivo.readlines()  # Retorna uma lista contendo todas as linhas do arquivo
+            
 
         except Exception as error:  # Se ocorrer um erro durante a execução do bloco de código dentro do try
             print(error.__class__.__name__)  # Imprime o nome da classe do erro
