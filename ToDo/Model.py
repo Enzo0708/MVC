@@ -14,17 +14,17 @@ class ToDo():  # Define a classe ToDo
         tarefas = [tarefa for tarefa in tarefas if tarefa.status == "A fazer"]
         return tarefas
     
-    def AlterarTarefa(self, alterar):
-        self.lista.pop(alterar)
-        return True 
+    def AlterarTarefa(self, alterar):       # Define o método AlterarTarefa que recebe o índice da tarefa a ser alterada e a nova descrição como parâmetros    
+        self.lista.pop(alterar) # Remove a tarefa correspondente ao índice da lista de tarefas
+        return True     # Retorna True indicando que a tarefa foi alterada com sucesso
 
-    def ConcluirTarefa(self, concluir):
-            self.lista_concluidos.pop(concluir)
-            return True
+    def ConcluirTarefa(self, concluir):    # Define o método ConcluirTarefa que recebe o índice da tarefa a ser concluída e o novo status como parâmetros
+        self.lista_concluidos.pop(concluir) # Remove a tarefa correspondente ao índice da lista de tarefas
+        return True    # Retorna True indicando que a tarefa foi concluída com sucesso
     
-    def listar_tarefas_concluidas(tarefas):
-        tarefas_concluidas = [tarefa for tarefa in tarefas if tarefa.status == "Concluída"]
-        return tarefas_concluidas
+    def listar_tarefas_concluidas(tarefas): # Define o método listar_tarefas_concluidas que recebe a lista de tarefas como parâmetro
+        tarefas_concluidas = [tarefa for tarefa in tarefas if tarefa.status == "Concluída"] # Cria uma lista com as tarefas concluídas
+        return tarefas_concluidas   # Retorna a lista de tarefas concluídas
         
 
 
