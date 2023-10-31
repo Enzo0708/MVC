@@ -55,7 +55,6 @@ class ControllerExcluirTarefa:
             print(error.__class__.__name__)
             
 
-
 class ControllerListarTarefas:
     #listar somente as tarefas que não foram concluidas
     def __init__(self):

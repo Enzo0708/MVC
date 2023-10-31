@@ -23,6 +23,7 @@ while sair == 0:  # Inicia um loop que só será interrompido quando a variável
     menu = input("-> ")  # Recebe a opção do usuário
     
     match menu:  # Verifica qual opção foi escolhida
+        
         case "1":  # Se a opção escolhida foi "1"
             os.system("cls")  # Limpa a tela do console
             tarefa = input("Adicione uma TAREFA -> ")  # Recebe a tarefa do usuário
@@ -49,10 +50,12 @@ while sair == 0:  # Inicia um loop que só será interrompido quando a variável
             novo_status = "Concluído"  # Recebe a nova descrição da tarefa
             concluirTarefa = ControllerConcluirTarefa(indice, novo_status)  # Altera a tarefa
             os.system("pause")
+
         case "5":  # Se a opção escolhida foi "5"
             os.system("cls")  # Limpa a tela do console
             listarTarefas = ControllerListarTarefasConcluidas()  # Lista as tarefas
             os.system("pause")  # Pausa a execução do programa até que o usuário pressione qualquer tecla   
+
         case "6":  # Se a opção escolhida foi "6"
             os.system("cls")  # Limpa a tela do console
             listarTarefas = ControllerListarTarefas()  # Lista as tarefas
@@ -61,5 +64,6 @@ while sair == 0:  # Inicia um loop que só será interrompido quando a variável
             print("\nLista:")
             listarTarefas = ControllerListarTarefas()  # Lista as tarefas novamente
             os.system("pause")  # Pausa a execução do programa até que o usuário pressione qualquer tecla
+
         case "7":  # Se a opção escolhida foi "7"
             sair = 1  # Altera o valor da variável sair para 1, interrompendo o loop

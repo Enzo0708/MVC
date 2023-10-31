@@ -4,6 +4,7 @@ class Dao:  # Define a classe Dao
         with open (self.arquivo, "a") as arquivo:
             arquivo.close()
 
+
     def AdicionarTarefa(self, tarefa):  # Define o método AdicionarTarefa que recebe a tarefa como parâmetro
         try:  # Tenta executar o bloco de código dentro do try
 
@@ -17,6 +18,7 @@ class Dao:  # Define a classe Dao
             print(error.__class__.__name__)  # Imprime o nome da classe do erro
             return False  # Retorna False indicando que a tarefa não foi adicionada com sucesso
         
+
     def listarTarefas(self):  # Define o método listar Tarefas que não recebe nenhum parâmetro
         try:  # Tenta executar o bloco de código dentro do try
             with open(self.arquivo, "r") as arquivo:  # Abre o arquivo em modo de leitura ("r")
@@ -25,6 +27,7 @@ class Dao:  # Define a classe Dao
         except Exception as error:  # Se ocorrer um erro durante a execução do bloco de código dentro do try
             print(error.__class__.__name__)  # Imprime o nome da classe do erro
             return False  # Retorna False indicando que as tarefas não foram listadas com sucesso
+
 
     def excluirTarefa(self, excluir):
         try:
@@ -99,7 +102,8 @@ class Dao:  # Define a classe Dao
         except Exception as error:
             print(error.__class__.__name__)
             return False
-#///////////////////////////////////////////////////////////////////////
+
+
     def adicionarTarefaConcluida(self, tarefa_concluida):
         try:
             with open(self.arquivo, "a") as arquivo:
@@ -110,7 +114,8 @@ class Dao:  # Define a classe Dao
         except Exception as error:
             print(error.__class__.__name__)
             return False
-#////////////////////////////////////////////////////////////////////////
+
+
     def adicionarTarefaConcluida(self, tarefa_concluida):
         try:
             with open(self.arquivo, "a") as arquivo:
@@ -121,7 +126,8 @@ class Dao:  # Define a classe Dao
         except Exception as error:
             print(error.__class__.__name__)
             return False
-#////////////////////////////////////////////////////////////////////////
+
+
     def listarTarefasConcluidas(self):
         try:
             with open(self.arquivo, "r") as arquivo:
