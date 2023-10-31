@@ -11,20 +11,20 @@ class ToDo():  # Define a classe ToDo
         return True  # Retorna True indicando que a tarefa foi excluída com sucesso
 
     def ListarTarefas(self):  # Define o método ListarTarefas que não recebe nenhum parâmetro
-        return self.lista  # Retorna a lista de tarefas
+        tarefas = [tarefa for tarefa in tarefas if tarefa.status == "A fazer"]
+        return tarefas
     
     def AlterarTarefa(self, alterar):
         self.lista.pop(alterar)
-        return True
-    
+        return True 
 
     def ConcluirTarefa(self, concluir):
-        self.lista.pop(concluir)
-        return True
-
-    def ListarTarefasConcluidas(self,concluidas):
-        #Somente as tarefas concluidas
-        return self.lista
+            self.lista_concluidos.pop(concluir)
+            return True
+    
+    def listar_tarefas_concluidas(tarefas):
+        tarefas_concluidas = [tarefa for tarefa in tarefas if tarefa.status == "Concluída"]
+        return tarefas_concluidas
         
 
 

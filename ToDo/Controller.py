@@ -46,6 +46,7 @@ class ControllerExcluirTarefa:
             print("Índice inválido.")
 
 class ControllerListarTarefas:
+    #listar somente as tarefas que não foram concluidas
     def __init__(self):
         self.lista = DAO.listarTarefas()
         self.exibirTarefas()
@@ -53,61 +54,52 @@ class ControllerListarTarefas:
     def exibirTarefas(self):
         if self.lista:
             for i, tarefa in enumerate(self.lista, start=1):
-                tarefa_parts = tarefa.split(" - ", 2)  # Dividir em 3 partes
-
+                tarefa_parts = tarefa.split(" - ", 2)
                 if len(tarefa_parts) == 3:
                     _, status, texto_tarefa = tarefa_parts
-                    print(f"[{i}] - Status: {status}, Tarefa: {texto_tarefa}")
+                    if status == "A fazer":
+                        print(f"[{i}] - Status: {status}, Tarefa: {texto_tarefa}")
                 else:
                     print(f"[{i}] - Tarefa não encontrada.")
 
 class ControllerConcluirTarefa:
-    def __init__(self, concluir):
-        self.concluir = int(concluir)
-        self.concluir_tarefa()
+    def __init__(self, indice, novo_status):
+        self.indice = int(indice)
+        self.novo_status = novo_status
+        self.concluirTarefa()
 
-    def concluir_tarefa(self):
-        tarefas = DAO.listarTarefas()
+    def concluirTarefa(self):
+        if self.indice > 0:
+            tarefas = DAO.listarTarefas()
 
-        if self.concluir >= 1 and self.concluir <= len(tarefas):
-            tarefa = tarefas[self.concluir - 1]
-            tarefa_parts = tarefa.split(" - ", 1)
-
-            if len(tarefa_parts) > 1:
-                _, texto_tarefa = tarefa_parts
-                print(f"Concluindo a tarefa: {texto_tarefa}")
-
-                if DAO.concluirTarefa(self.concluir - 1):
-                    print("Tarefa Concluída")
-                    # Agora, adicione a tarefa concluída à lista de tarefas concluídas
-                    tarefa_concluida = f"{texto_tarefa} - Concluída"  # Adiciona o status de concluída
-                    if DAO.adicionarTarefaConcluida(tarefa_concluida):
-                        print("Tarefa adicionada à lista de tarefas concluídas")
-                    else:
-                        print("Não foi possível adicionar a tarefa à lista de tarefas concluídas.")
+            if self.indice <= len(tarefas):
+                if DAO.concluirTarefa(self.indice - 1, self.novo_status):
+                    print("Tarefa alterada com sucesso.")
                 else:
-                    print("Não foi possível concluir a tarefa. Verifique o índice.")
+                    print("Não foi possível alterar a tarefa.")
             else:
-                print("Tarefa não encontrada.")
+                print("Índice inválido.")
         else:
-            print("Índice inválido.")
-
+            print("Operação cancelada.")
 
 class ControllerListarTarefasConcluidas:
+    #Lista somente as tarefas concluidas    
     def __init__(self):
-        self.lista = DAO.listarTarefasConcluidas()
-        self.exibirTarefas()
+        self.lista = DAO.listarTarefas()
+        self.exibirTarefasConcluidas()
 
-    def exibirTarefas(self):
+    def exibirTarefasConcluidas(self):
         if self.lista:
             for i, tarefa in enumerate(self.lista, start=1):
-                tarefa_parts = tarefa.split(" - ", 3)  # Correção: Dividir em 4 partes
-
-                if len(tarefa_parts) == 4:  # Correção: Verificar se há 4 partes
-                    _, status, texto_tarefa, _ = tarefa_parts  # Correção: Adicionar uma variável para o último valor não usado
-                    print(f"[{i}] - Status: {status}, Tarefa: {texto_tarefa}")
+                tarefa_parts = tarefa.split(" - ", 2)
+                if len(tarefa_parts) == 3:
+                    _, status, texto_tarefa = tarefa_parts
+                    if status == "Concluído":
+                        print(f"[{i}] - Status: {status}, Tarefa: {texto_tarefa}")
                 else:
                     print(f"[{i}] - Tarefa não encontrada.")
+
+
 
 
 class ControllerAlterarTarefa:
@@ -129,3 +121,4 @@ class ControllerAlterarTarefa:
                 print("Índice inválido.")
         else:
             print("Operação cancelada.")
+
