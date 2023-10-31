@@ -24,28 +24,36 @@ class ControllerAdicionarTarefa:
 
 class ControllerExcluirTarefa:
     def __init__(self, excluir):
-        self.excluir = int(excluir)
-        self.excluir_tarefa()
+        try:
+            self.excluir = int(excluir)
+            self.excluir_tarefa()
+        except Exception as error:
+            print(error.__class__.__name__)
+            print("Não foi possível excluir a tarefa.")
 
     def excluir_tarefa(self):
         tarefas = DAO.listarTarefas()
+        try:
+            if self.excluir >= 1 and self.excluir <= len(tarefas):
+                tarefa = tarefas[self.excluir - 1]
+                tarefa_parts = tarefa.split(" - ", 1)
 
-        if self.excluir >= 1 and self.excluir <= len(tarefas):
-            tarefa = tarefas[self.excluir - 1]
-            tarefa_parts = tarefa.split(" - ", 1)
+                if len(tarefa_parts) > 1:
+                    _, texto_tarefa = tarefa_parts
+                    print(f"Excluindo a tarefa: {texto_tarefa}")
 
-            if len(tarefa_parts) > 1:
-                _, texto_tarefa = tarefa_parts
-                print(f"Excluindo a tarefa: {texto_tarefa}")
-
-                if DAO.excluirTarefa(self.excluir - 1):  # Correção: Chamada correta para DAO.ExcluirTarefa
-                    print("Tarefa Excluída")
+                    if DAO.excluirTarefa(self.excluir - 1):  # Correção: Chamada correta para DAO.ExcluirTarefa
+                        print("Tarefa Excluída")
+                    else:
+                        print("Não foi possível excluir a tarefa. Verifique o índice.")
                 else:
-                    print("Não foi possível excluir a tarefa. Verifique o índice.")
+                    print("Tarefa não encontrada.")
             else:
-                print("Tarefa não encontrada.")
-        else:
-            print("Índice inválido.")
+                print("Índice inválido.")
+
+        except Exception as error:
+            print(error.__class__.__name__)
+            
 
 
 class ControllerListarTarefas:
@@ -68,23 +76,30 @@ class ControllerListarTarefas:
 
 class ControllerConcluirTarefa:
     def __init__(self, indice, novo_status):
-        self.indice = int(indice)
-        self.novo_status = novo_status
-        self.concluirTarefa()
-
+        try:
+            self.indice = int(indice)
+            self.novo_status = novo_status
+            self.concluirTarefa()
+        except Exception as error:
+            print(error.__class__.__name__)
+            print("Não foi possível concluir a tarefa.")
     def concluirTarefa(self):
-        if self.indice > 0:
-            tarefas = DAO.listarTarefas()
+        try:
+            if self.indice > 0:
+                tarefas = DAO.listarTarefas()
 
-            if self.indice <= len(tarefas):
-                if DAO.concluirTarefa(self.indice - 1, self.novo_status):
-                    print("Tarefa alterada com sucesso.")
+                if self.indice <= len(tarefas):
+                    if DAO.concluirTarefa(self.indice - 1, self.novo_status):
+                        print("Tarefa alterada com sucesso.")
+                    else:
+                        print("Não foi possível alterar a tarefa.")
                 else:
-                    print("Não foi possível alterar a tarefa.")
+                    print("Índice inválido.")
             else:
-                print("Índice inválido.")
-        else:
-            print("Operação cancelada.")
+                print("Operação cancelada.")
+        except Exception as error:
+            print(error.__class__.__name__)
+            print("Não foi possível concluir a tarefa.")
 
 
 class ControllerListarTarefasConcluidas:
@@ -107,24 +122,32 @@ class ControllerListarTarefasConcluidas:
 
 class ControllerAlterarTarefa:
     def __init__(self, indice, nova_descricao):
-        if not nova_descricao.strip():  # Verifica se a tarefa é vazia ou apenas espaços em branco
-            print("Tarefa vazia. Não foi possível adicionar.")
-        else:
-            self.indice = int(indice)
-            self.nova_descricao = nova_descricao
-            self.alterar_tarefa()
+        try:
+            if not nova_descricao.strip():  # Verifica se a tarefa é vazia ou apenas espaços em branco
+                print("Tarefa vazia. Não foi possível adicionar.")
+            else:
+                self.indice = int(indice)
+                self.nova_descricao = nova_descricao
+                self.alterar_tarefa()
+        except Exception as error:
+            print(error.__class__.__name__)
+            print("Não foi possível alterar a tarefa.")
 
     def alterar_tarefa(self):
-        if self.indice > 0:
-            tarefas = DAO.listarTarefas()
+        try:
+            if self.indice > 0:
+                tarefas = DAO.listarTarefas()
 
-            if self.indice <= len(tarefas):
-                if DAO.alterarTarefa(self.indice - 1, self.nova_descricao):
-                    print("Tarefa alterada com sucesso.")
+                if self.indice <= len(tarefas):
+                    if DAO.alterarTarefa(self.indice - 1, self.nova_descricao):
+                        print("Tarefa alterada com sucesso.")
+                    else:
+                        print("Não foi possível alterar a tarefa.")
                 else:
-                    print("Não foi possível alterar a tarefa.")
+                    print("Índice inválido.")
             else:
-                print("Índice inválido.")
-        else:
-            print("Operação cancelada.")
+                print("Operação cancelada.")
+        except Exception as error:
+            print(error.__class__.__name__)
+            print("Não foi possível alterar a tarefa.")
 
